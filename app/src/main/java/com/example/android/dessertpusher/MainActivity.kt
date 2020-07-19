@@ -26,6 +26,7 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Timber.i("onCreate called")
+
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -78,6 +81,17 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Make sure the correct dessert is showing
         binding.dessertButton.setImageResource(currentDessert.imageId)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("OnResume called")
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        Timber.i("onResumeFragments called")
     }
 
     /**
@@ -117,6 +131,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
             currentDessert = newDessert
             binding.dessertButton.setImageResource(newDessert.imageId)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.i("Onstart called")
     }
 
     /**
